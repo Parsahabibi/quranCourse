@@ -195,10 +195,10 @@ const ImageGallery = () => {
               {images.map((image, index) => (
                 <div key={image.id} className="flex justify-center items-center gap-6 mb-4">
                   <div className="w-20 h-20">
-                    <img src={image.src} alt={`img-${image.id}`} style={{ border: incorrectInputs.length > 0 ? `2px solid ${!incorrectInputs[index] ? '#dc2626' : '#a3e635'}` : '2px solid transparent' }} className="w-20 h-20 object-cover rounded-md mb-4" />
+                    <img src={image.src} alt={`img-${image.id}`} style={{ border: incorrectInputs.length > 0 ? `2px solid ${isChecked && incorrectBoxes[index] ? '#dc2626' : '#a3e635'}` : '2px solid transparent' }} className="w-20 h-20 object-cover rounded-md mb-4" />
                   </div>
                   <input
-                    style={{ backgroundColor: 'white', color: 'black', marginTop: '8px', width: '30px', height: '30px',  border: incorrectInputs.length > 0 ? `2px solid ${!incorrectInputs[index] ? '#dc2626' : '#a3e635'}` : '2px solid transparent' , outline: 'none' }}
+                    style={{ backgroundColor: 'white', color: 'black', marginTop: '8px', width: '30px', height: '30px',  border: incorrectInputs.length > 0 ? `2px solid ${isChecked && incorrectBoxes[index] ? '#dc2626' : '#a3e635'}` : '2px solid transparent' , outline: 'none' }}
                     type="number"
                     min="1"
                     max="4"

@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --x: 0;
+  --y: 0;
+  --text-color: #fff;
+  --text-layer-1: --text-color;
+  --text-layer-2: #a5dbeb;
+  --text-layer-3: #347cb4;
+  --blur: 6px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  block-size: 100vh;
+  font-family: "Pacifico", cursive;
+  color: var(--text-color);
+}
+
+.containers {
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  block-size: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.containers .card {
+  inline-size: inherit;
+  min-block-size: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 3rem;
+}
+.containers .card a {
+  display: inline-flex;
+  padding: 0.55rem 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: clamp(2rem, 3vw, 3rem);
+  color: var(--text-layer-2);
+  border-radius: 0.25rem;
+  transition: scale 200ms cubic-bezier(0.64, 0.11, 0.24, 2.47);
+  /* 			 */
+  /* 			 */
+  animation: blur both linear;
+  animation-timeline: view(x 50vw auto);
+}
+.containers .card a:not(:hover) {
+  filter: blur(var(--blur));
+  -webkit-filter: blur(var(--blur));
+}
+.containers .card a:nth-of-type(2) {
+  translate: 0 25vh;
+}
+.containers .card a:nth-of-type(3n + 1) {
+  translate: 0 60vh;
+}
+.containers .card a:nth-of-type(3n + 1):not(:hover) {
+  color: var(--text-layer-2);
+  scale: 0.8;
+}
+.containers .card a:nth-of-type(even):not(:hover) {
+  color: var(--text-layer-3);
+}
+.containers .card a:hover {
+  scale: 1.35;
+  background: rgba(87, 101, 133, 0.2);
+}
+.containers .card:nth-of-type(2) a:nth-of-type(2) {
+  translate: 0 45vh;
+}
+.containers .card:nth-of-type(2) a:nth-of-type(3n + 1) {
+  translate: 0 75vh;
+}
+
+.back {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* 	 */
+  background-color: #1abcfe;
+  background-image: url(https://wallpapers.com/images/hd/parallax-background-hb9fl02o6zsu6s1c.jpg);
+  background-position: var(--x) var(--y);
+  background-repeat: no-repeat;
+  background-size: 250vh;
+  /* 	 */
+  animation: scroll-page both linear;
+  animation-timeline: scroll(inline);
+}
+
+.airplane {
+  position: fixed;
+  z-index: 2;
+  left: 1rem;
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  gap: 1rem;
+  animation: airplane both linear;
+  animation-timeline: scroll(inline);
+}
+.airplane #airship {
+  display: none;
+}
+.airplane #airship .screw {
+  transform-origin: 50% 46%;
+  animation: screw 100ms infinite;
+}
+
+label {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 3;
+  padding: 0.25rem;
+  color: var(--text-layer-3);
+  background-color: var(--text-color);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+}
+label:has(input[type=checkbox]:checked) ~ .containers {
+  flex-direction: column;
+}
+label:has(input[type=checkbox]:checked) ~ .containers .card {
+  flex-direction: column;
+}
+label:has(input[type=checkbox]:checked) ~ .containers .card a {
+  translate: none;
+  /* 					color: var(--text-color); */
+  scale: 1;
+  animation-timeline: view(y 40vh auto);
+}
+label:has(input[type=checkbox]:checked) ~ .containers ~ .back {
+  animation-timeline: scroll();
+}
+label:has(input[type=checkbox]:checked) ~ .airplane {
+  top: 5rem;
+  right: 1rem;
+  left: auto;
+  flex-direction: column;
+  animation: airship both linear;
+  animation-timeline: scroll();
+}
+label:has(input[type=checkbox]:checked) ~ .airplane #airplane {
+  display: none;
+}
+label:has(input[type=checkbox]:checked) ~ .airplane #airship {
+  display: block;
+}
+
+.help {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  translate: -50%;
+}
+
+@keyframes scroll-page {
+  to {
+    /* 		--x: 100%; */
+    /* 		--y: 100%; */
+    background-position: 100% 50%;
+  }
+}
+@keyframes airplane {
+  0% {
+    translate: -110%;
+  }
+  10% {
+    translate: 10vw 0;
+  }
+  20% {
+    translate: 20vw -20vh;
+  }
+  30% {
+    translate: 30vw -20vh;
+  }
+  40% {
+    translate: 30vw 20vh;
+  }
+  50% {
+    translate: 50vw 30vh;
+  }
+  60% {
+    translate: 60vw -35vh;
+  }
+  70% {
+    translate: 70vw 10vh;
+  }
+  100% {
+    translate: 100vw;
+  }
+}
+@keyframes airship {
+  0% {
+    scale: 0.25;
+  }
+  20% {
+    translate: -40vw 20vh;
+  }
+  40% {
+    translate: -30vw 60vh;
+  }
+  60% {
+    translate: -50vw 40vh;
+  }
+  100% {
+    translate: -80vw 100vh;
+    scale: 3;
+  }
+}
+@keyframes blur {
+  to {
+    filter: blur(0);
+    -webkit-filter: blur(0);
+    color: var(--text-color);
+  }
+}
+@keyframes screw {
+  to {
+    rotate: 180deg;
+  }
+}/*# sourceMappingURL=slideOne.css.map */
